@@ -1,8 +1,9 @@
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { HelpCircle } from 'lucide-react';
+import { HelpCircle, MessageCircle, Phone } from 'lucide-react';
 import FAQSection from '@/components/FAQSection';
+import ChatInterface from '@/components/ChatInterface';
 
 const Index = () => {
   const { user, signOut } = useAuth();
@@ -37,8 +38,14 @@ const Index = () => {
               <HelpCircle className="h-4 w-4" />
               FAQ
             </TabsTrigger>
-            <TabsTrigger value="chat">Live Chat</TabsTrigger>
-            <TabsTrigger value="contact">Contact Us</TabsTrigger>
+            <TabsTrigger value="chat" className="flex items-center gap-2">
+              <MessageCircle className="h-4 w-4" />
+              Live Chat
+            </TabsTrigger>
+            <TabsTrigger value="contact" className="flex items-center gap-2">
+              <Phone className="h-4 w-4" />
+              Contact Us
+            </TabsTrigger>
           </TabsList>
           
           <TabsContent value="faq" className="mt-6">
@@ -46,11 +53,7 @@ const Index = () => {
           </TabsContent>
           
           <TabsContent value="chat" className="mt-6">
-            <div className="text-center p-8 border rounded-lg">
-              <h3 className="text-xl font-semibold mb-2">Live Chat</h3>
-              <p className="text-muted-foreground mb-4">Chat with our support team</p>
-              <p className="text-sm text-muted-foreground">Coming soon...</p>
-            </div>
+            <ChatInterface />
           </TabsContent>
           
           <TabsContent value="contact" className="mt-6">

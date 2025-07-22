@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      chat_sessions: {
+        Row: {
+          created_at: string
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       faqs: {
         Row: {
           answer: string
@@ -40,6 +61,41 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      messages: {
+        Row: {
+          created_at: string
+          id: string
+          is_user_message: boolean
+          message: string
+          response: string | null
+          session_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_user_message?: boolean
+          message: string
+          response?: string | null
+          session_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_user_message?: boolean
+          message?: string
+          response?: string | null
+          session_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "chat_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       users: {
         Row: {
