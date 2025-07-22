@@ -43,7 +43,10 @@ const AdminDashboard = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button className="w-full">
+              <Button 
+                className="w-full"
+                onClick={() => navigate('/admin/faqs')}
+              >
                 Manage FAQs
               </Button>
             </CardContent>
