@@ -9,6 +9,7 @@ A mobile-first customer support portal for electric scooter users with essential
 1. **Mobile OTP Authentication**
    - Phone number login only
    - Simple OTP verification
+   - Customer will access only Customer Portal
 
 2. **Basic FAQ System**
    - 10-15 predefined questions/answers
@@ -27,6 +28,7 @@ A mobile-first customer support portal for electric scooter users with essential
 ### Admin Portal (Basic)
 1. **Admin Login**
    - Simple email/password authentication
+   - Admin will be able to access only Admin Portal
    
 2. **FAQ Management**
    - Add/edit/delete FAQ items
