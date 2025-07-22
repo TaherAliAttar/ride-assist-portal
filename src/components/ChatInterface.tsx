@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useChat } from '@/hooks/useChat';
+import NotSatisfiedButton from './NotSatisfiedButton';
 
 const ChatInterface = () => {
   const { currentSession, messages, loading, sending, sendMessage, startNewSession } = useChat();
@@ -97,12 +98,20 @@ const ChatInterface = () => {
                     }`}
                   >
                     <p className="text-sm whitespace-pre-wrap">{message.message}</p>
-                    <p className="text-xs opacity-70 mt-1">
-                      {new Date(message.created_at).toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </p>
+                    <div className="flex items-center justify-between mt-2">
+                      <p className="text-xs opacity-70">
+                        {new Date(message.created_at).toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </p>
+                      {!message.is_user_message && (
+                        <NotSatisfiedButton 
+                          chatSessionId={currentSession?.id}
+                          context={message.message}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

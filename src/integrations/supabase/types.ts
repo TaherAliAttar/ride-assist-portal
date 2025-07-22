@@ -97,6 +97,50 @@ export type Database = {
           },
         ]
       }
+      unresolved_queries: {
+        Row: {
+          chat_session_id: string | null
+          contact_method: string | null
+          created_at: string
+          id: string
+          priority: string | null
+          query: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          chat_session_id?: string | null
+          contact_method?: string | null
+          created_at?: string
+          id?: string
+          priority?: string | null
+          query: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          chat_session_id?: string | null
+          contact_method?: string | null
+          created_at?: string
+          id?: string
+          priority?: string | null
+          query?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "unresolved_queries_chat_session_id_fkey"
+            columns: ["chat_session_id"]
+            isOneToOne: false
+            referencedRelation: "chat_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           created_at: string

@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { HelpCircle, MessageCircle, Phone } from 'lucide-react';
 import FAQSection from '@/components/FAQSection';
 import ChatInterface from '@/components/ChatInterface';
+import EscalationForm from '@/components/EscalationForm';
 
 const Index = () => {
   const { user, signOut } = useAuth();
@@ -57,11 +58,7 @@ const Index = () => {
           </TabsContent>
           
           <TabsContent value="contact" className="mt-6">
-            <div className="text-center p-8 border rounded-lg">
-              <h3 className="text-xl font-semibold mb-2">Contact Us</h3>
-              <p className="text-muted-foreground mb-4">Submit a support request</p>
-              <p className="text-sm text-muted-foreground">Coming soon...</p>
-            </div>
+            <EscalationForm />
           </TabsContent>
         </Tabs>
       </main>
