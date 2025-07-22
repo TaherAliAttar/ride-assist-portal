@@ -1,5 +1,8 @@
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { HelpCircle } from 'lucide-react';
+import FAQSection from '@/components/FAQSection';
 
 const Index = () => {
   const { user, signOut } = useAuth();
@@ -21,29 +24,43 @@ const Index = () => {
       </header>
       
       <main className="container mx-auto px-4 py-8">
-        <div className="text-center">
+        <div className="text-center mb-8">
           <h2 className="text-3xl font-bold mb-4">Welcome to Customer Portal</h2>
-          <p className="text-xl text-muted-foreground mb-8">
+          <p className="text-xl text-muted-foreground">
             Get help with your electric scooter
           </p>
-          
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto">
-            <div className="p-6 border rounded-lg">
-              <h3 className="text-xl font-semibold mb-2">FAQ</h3>
-              <p className="text-muted-foreground">Find answers to common questions</p>
-            </div>
-            
-            <div className="p-6 border rounded-lg">
-              <h3 className="text-xl font-semibold mb-2">Live Chat</h3>
-              <p className="text-muted-foreground">Chat with our support team</p>
-            </div>
-            
-            <div className="p-6 border rounded-lg">
-              <h3 className="text-xl font-semibold mb-2">Contact Us</h3>
-              <p className="text-muted-foreground">Submit a support request</p>
-            </div>
-          </div>
         </div>
+
+        <Tabs defaultValue="faq" className="max-w-4xl mx-auto">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="faq" className="flex items-center gap-2">
+              <HelpCircle className="h-4 w-4" />
+              FAQ
+            </TabsTrigger>
+            <TabsTrigger value="chat">Live Chat</TabsTrigger>
+            <TabsTrigger value="contact">Contact Us</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="faq" className="mt-6">
+            <FAQSection />
+          </TabsContent>
+          
+          <TabsContent value="chat" className="mt-6">
+            <div className="text-center p-8 border rounded-lg">
+              <h3 className="text-xl font-semibold mb-2">Live Chat</h3>
+              <p className="text-muted-foreground mb-4">Chat with our support team</p>
+              <p className="text-sm text-muted-foreground">Coming soon...</p>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="contact" className="mt-6">
+            <div className="text-center p-8 border rounded-lg">
+              <h3 className="text-xl font-semibold mb-2">Contact Us</h3>
+              <p className="text-muted-foreground mb-4">Submit a support request</p>
+              <p className="text-sm text-muted-foreground">Coming soon...</p>
+            </div>
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );
