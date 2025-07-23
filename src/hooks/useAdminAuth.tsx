@@ -21,49 +21,68 @@ export const AdminAuthProvider = ({ children }: { children: React.ReactNode }) =
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        // Check if user is admin
-        if (session?.user?.email) {
-          const { data } = await supabase
-            .from('admin_users')
-            .select('id')
-            .eq('email', session.user.email)
-            .single();
-          setIsAdmin(!!data);
-        } else {
-          setIsAdmin(false);
-        }
-        
-        setLoading(false);
-      }
-    );
+    let mounted = true;
 
-    // Check for existing session
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
+    const checkAdminStatus = async (session: Session | null) => {
+      if (!mounted) return;
+      
       setSession(session);
       setUser(session?.user ?? null);
       
       // Check if user is admin
       if (session?.user?.email) {
-        const { data } = await supabase
-          .from('admin_users')
-          .select('id')
-          .eq('email', session.user.email)
-          .single();
-        setIsAdmin(!!data);
+        try {
+          const { data } = await supabase
+            .from('admin_users')
+            .select('id')
+            .eq('email', session.user.email)
+            .single();
+          
+          if (mounted) {
+            setIsAdmin(!!data);
+          }
+        } catch (error) {
+          if (mounted) {
+            setIsAdmin(false);
+          }
+        }
       } else {
-        setIsAdmin(false);
+        if (mounted) {
+          setIsAdmin(false);
+        }
       }
       
-      setLoading(false);
-    });
+      if (mounted) {
+        setLoading(false);
+      }
+    };
 
-    return () => subscription.unsubscribe();
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        await checkAdminStatus(session);
+      }
+    );
+
+    // Check for existing session
+    const initializeAuth = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        await checkAdminStatus(session);
+      } catch (error) {
+        console.error('Error initializing auth:', error);
+        if (mounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    initializeAuth();
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signInWithEmail = async (email: string, password: string) => {
