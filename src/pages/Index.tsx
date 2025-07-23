@@ -5,6 +5,7 @@ import { HelpCircle, MessageCircle, Phone } from 'lucide-react';
 import FAQSection from '@/components/FAQSection';
 import ChatInterface from '@/components/ChatInterface';
 import EscalationForm from '@/components/EscalationForm';
+import zoomScooterLogo from '@/assets/zoom-scooter-logo.png';
 
 const Index = () => {
   const { user, signOut } = useAuth();
@@ -13,7 +14,10 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <header className="border-b">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Electric Scooter Support</h1>
+          <div className="flex items-center gap-3">
+            <img src={zoomScooterLogo} alt="Zoom Scooter Logo" className="h-8 w-8" />
+            <h1 className="text-2xl font-bold">Zoom Scooter Support</h1>
+          </div>
           <div className="flex items-center gap-4">
             <span className="text-sm text-muted-foreground">
               {user?.phone}
