@@ -12,6 +12,7 @@ import Auth from "./pages/Auth";
 import AdminAuth from "./pages/AdminAuth";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminFAQManagement from "./pages/AdminFAQManagement";
+import AdminQueryManagement from "./pages/AdminQueryManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,16 @@ const App = () => (
               <Route path="/admin/faqs" element={
                 <AdminProtectedRoute>
                   <AdminFAQManagement />
+                </AdminProtectedRoute>
+              } />
+              <Route path="/admin/queries" element={
+                <AdminProtectedRoute>
+                  <AdminQueryManagement />
+                </AdminProtectedRoute>
+              } />
+              <Route path="/admin/dashboard" element={
+                <AdminProtectedRoute>
+                  <AdminDashboard />
                 </AdminProtectedRoute>
               } />
               <Route path="/" element={

@@ -63,7 +63,10 @@ const AdminDashboard = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button className="w-full">
+              <Button 
+                className="w-full"
+                onClick={() => navigate('/admin/queries')}
+              >
                 View Queries
               </Button>
             </CardContent>
