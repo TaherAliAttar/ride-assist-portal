@@ -71,6 +71,24 @@ export const AdminAuthProvider = ({ children }: { children: React.ReactNode }) =
       email,
       password,
     });
+    
+    if (!error) {
+      // Wait for the session to be established and check admin status
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user?.email) {
+        const { data } = await supabase
+          .from('admin_users')
+          .select('id')
+          .eq('email', session.user.email)
+          .single();
+        
+        if (!data) {
+          await supabase.auth.signOut();
+          return { error: { message: "Access denied. Admin privileges required." } };
+        }
+      }
+    }
+    
     return { error };
   };
 
