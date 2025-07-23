@@ -18,18 +18,22 @@ export const useAdminFAQs = () => {
 
   const fetchFAQs = async () => {
     try {
+      setLoading(true);
       const { data, error } = await supabase
         .from('faqs')
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
       setFaqs(data || []);
     } catch (error) {
       console.error('Error fetching FAQs:', error);
       toast({
         title: "Error",
-        description: "Failed to fetch FAQs",
+        description: error.message || "Failed to fetch FAQs. Please ensure you're logged in as an admin.",
         variant: "destructive",
       });
     } finally {

@@ -27,8 +27,7 @@ const FAQ_CATEGORIES = [
   'Battery',
   'Charging', 
   'Maintenance',
-  'Troubleshooting',
-  'General'
+  'Troubleshooting'
 ];
 
 export const FAQForm = ({ faq, open, onOpenChange, onSubmit, loading }: FAQFormProps) => {
