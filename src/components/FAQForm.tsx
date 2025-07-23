@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -36,6 +36,23 @@ export const FAQForm = ({ faq, open, onOpenChange, onSubmit, loading }: FAQFormP
     answer: faq?.answer || '',
     category: faq?.category || '',
   });
+
+  // Update form data when faq prop changes
+  useEffect(() => {
+    if (faq) {
+      setFormData({
+        question: faq.question,
+        answer: faq.answer,
+        category: faq.category,
+      });
+    } else {
+      setFormData({
+        question: '',
+        answer: '',
+        category: '',
+      });
+    }
+  }, [faq]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
