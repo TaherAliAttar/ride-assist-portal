@@ -32,7 +32,7 @@ const AdminAuth = () => {
         title: "Signed in successfully",
         description: "Welcome to the admin portal",
       });
-      navigate('/admin');
+      navigate('/admin/faqs');
     }
     
     setLoading(false);
