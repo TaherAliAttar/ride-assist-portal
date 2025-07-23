@@ -19,10 +19,14 @@ export const useAdminFAQs = () => {
   const fetchFAQs = async () => {
     try {
       setLoading(true);
+      console.log('Fetching FAQs...');
+      
       const { data, error } = await supabase
         .from('faqs')
         .select('*')
         .order('created_at', { ascending: false });
+
+      console.log('FAQ fetch result:', { data, error });
 
       if (error) {
         console.error('Supabase error:', error);
@@ -36,6 +40,8 @@ export const useAdminFAQs = () => {
         description: error.message || "Failed to fetch FAQs. Please ensure you're logged in as an admin.",
         variant: "destructive",
       });
+      // Still set FAQs to empty array so loading stops
+      setFaqs([]);
     } finally {
       setLoading(false);
     }
